@@ -1,0 +1,77 @@
+<section class=" " >
+  <form [formGroup]="registrationForm" 
+        (ngSubmit)="onSubmit()" 
+        autocomplete="off"
+        class="transition-transform  flex flex-col" >
+    <h1 class="font-bold">Nuevo usuario</h1>
+  
+    <section class="body flex flex-row">
+      <aside class="flex flex-col mr-7 w-1/2">
+        <div>
+          <label for="name">Nombre de la persona:</label>
+          <input autocomplete="off" id="name" class="hover:shadow-md shadow-emerald-200  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "  placeholder="nombre completo" type="text" formControlName="name">
+          @if (registrationForm.get('name')?.invalid && (registrationForm.get('name')?.dirty || registrationForm.get('name')?.touched)) {
+            <div class="error">El nombre es requerido</div>
+          }
+        </div>
+      
+        <div>
+          <label for="username">Nombre de usuario:</label>
+          <input autocomplete="off" id="username" class="hover:shadow-md shadow-emerald-200  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "  placeholder="nombre.apellido" type="text" formControlName="username">
+          @if (registrationForm.get('username')?.invalid && (registrationForm.get('username')?.dirty || registrationForm.get('username')?.touched)) {
+            <div class="error">El nombre de usuario debe contener minimo 4 caracteres</div>
+          }
+        </div>
+      
+        <div>
+          <label for="password">Contraseña:</label>
+          <input autocomplete="off" id="password" class=" hover:shadow-md shadow-emerald-200 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "  placeholder="" type="password" formControlName="password" >
+          @if (registrationForm.get('password')?.invalid && (registrationForm.get('password')?.dirty || registrationForm.get('password')?.touched)) {
+            <div class="error">La Contraseña es requerida y debe tener 6 caracteres</div>
+          }
+        </div>
+      
+        <div>
+          <label for="repeat_password">Repita la contraseña:</label>
+          <input autocomplete="off" id="repeat_password" class="hover:shadow-md shadow-emerald-200  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "  placeholder=" " type="password" formControlName="repeat_password">
+          @if (registrationForm.get('repeat_password')?.invalid && (registrationForm.get('repeat_password')?.dirty || registrationForm.get('repeat_password')?.touched)) {
+            <div class="error">Las contraseñas no coinciden</div>
+          }
+        </div>
+      </aside>
+      
+      <aside class="flex flex-col w-1/2" >
+        <div>
+          <label for="email">Correo:</label>
+          <input autocomplete="off" id="email" class="hover:shadow-md shadow-emerald-200  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "  placeholder="usuario@akc.co" type="email" formControlName="email">
+          @if (registrationForm.get('email')?.invalid && (registrationForm.get('email')?.dirty || registrationForm.get('email')?.touched)) {
+            <div class="error">Ingrese un correo valido</div>
+          }
+        </div>
+            
+        <div>
+          <label for="id_role">Rol asociado:</label>
+          <select id="id_role" formControlName="id_role" class="hover:shadow-md shadow-emerald-200  bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+            <option value="">Seleccione un rol</option>
+            @for (rol of roles; track rol.id) {
+            <option value="{{rol.id}}">{{rol.description}}</option>      
+          }
+          </select>
+          @if (registrationForm.get('id_role')?.invalid && (registrationForm.get('id_role')?.dirty || registrationForm.get('id_role')?.touched)) {
+            <div class="error">El rol es requerido</div>
+          }
+        </div>
+
+        <div>
+          <label for="active">Activo:</label>
+          <input class="w-8" autocomplete="off" id="active" type="checkbox" formControlName="active">
+        </div>
+      </aside>
+    </section>
+    
+    
+  
+    <button class="rounded-md transition-transform " type="submit" [disabled]="!registrationForm.valid">Registrar</button>
+    </form>
+
+</section>

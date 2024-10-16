@@ -1,0 +1,16 @@
+/* latin */
+@font-face {
+  font-family: 'Archivo Black';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/assets/fonts/HTxqL289NzCGg4MzN6KJ7eW6CYyF_g.woff2') format('woff2');
+}
+
+
+h1 {
+    font-family: 'Archivo Black';
+    color: #494949;
+    user-select: none;
+    font-size: clamp(1rem, 2vw + 1rem, 3rem);
+  }

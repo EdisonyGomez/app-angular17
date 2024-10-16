@@ -1,0 +1,11 @@
+/* :host {
+  display: block;
+} */
+
+
+.cont{
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;     /* Centra verticalmente */
+  height: 100vh; 
+}

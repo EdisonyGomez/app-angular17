@@ -1,0 +1,33 @@
+<section class="bg-white w-64 h-max">
+  <ul class="tree-view">
+    @for (node of nodes; track node.id) {
+    <li>
+      <div class="node-content" (click)="toggleNode(node)">
+        <span class="toggle-icon" [class.expanded]="node.isExpanded">
+          @if (node.children && node.children.length) {
+            @if (node.isExpanded) {
+              <span class="flex gap-3">
+                <img src="/assets/icons/menos.svg" alt="Folder Open" class="icon">
+                <img src="/assets/icons/folder2.svg" alt="Folder Open" class="icon">
+              </span>
+            } @else {
+              <span class="flex gap-3">
+                <img src="/assets/icons/mas.svg" alt="Folder Closed" class="icon">
+                <img src="/assets/icons/folder.svg" alt="Folder Closed" class="icon">
+              </span>
+            }
+          } @else {
+            <img src="/assets/icons/documento.svg" alt="Document" class="icon">
+          }
+        </span>
+        <span class="node-name">{{ node.name }}</span>
+      </div>
+      @if (node.children && node.children.length) {
+        <div [@expandCollapse]="node.isExpanded ? 'expanded' : 'collapsed'" class="child-container">
+          <app-sidebar [nodes]="node.children"></app-sidebar>
+        </div>
+      }
+    </li>
+    }
+  </ul>
+</section>

@@ -1,0 +1,66 @@
+<div class="flex overflow-x-hidden">
+  <!-- Botón hamburguesa (ahora fuera del sidebar) -->
+  <button (click)="toggleSidebar()" 
+          class="fixed left-0 top-4 z-20 p-2 bg-white rounded-r-md shadow-md transition-transform duration-300 ease-in-out"
+          [class.translate-x-64]="!isSidebarHidden">
+    <img src="/assets/icons/boton-hamburguesa.svg" 
+         class="w-6 h-6 hover:scale-110 transition-transform duration-200" 
+         alt="Toggle sidebar">
+  </button>
+
+  <!-- Barra de menú de árbol -->
+  <section class="h-screen bg-[#e0e8f6] transition-all duration-300 ease-in-out fixed left-0 top-0"
+           [class.w-64]="!isSidebarHidden"
+           [class.w-0]="isSidebarHidden">
+    <!-- Contenedor de logo de agas kpital -->
+    <aside class="w-full bg-white h-24 relative">
+      <img class="h-20 w-32 mx-auto " src="/assets/img/logo-barra-lateral.png" alt="Logo">
+    </aside>
+
+    <!-- Barra lateral -->
+    <div class="transition-opacity duration-300 ease-in-out overflow-hidden"
+         [class.opacity-100]="!isSidebarHidden"
+         [class.opacity-0]="isSidebarHidden">
+      <app-sidebar [nodes]="treeData"></app-sidebar>
+    </div>
+  </section>
+
+  <!-- Contenido principal -->
+  <div class="flex-grow ml-0 transition-all duration-300 ease-in-out"
+       [class.ml-64]="!isSidebarHidden">
+    <!-- Header con el texto Aplicaciones web V2 -->
+    <section class="bg-[#e0e8f6] h-16 w-full flex items-center">
+      <app-header  class="w-full"></app-header>
+    </section>
+
+    <!-- Resto del contenido -->
+    <main class="">
+      <div class="tabs">
+        @for (tab of tabService.tabs$ | async; track tab.id) {
+          <div 
+            class="tab" 
+            [class.active]="tab.id === (tabService.activeTabId$ | async)"
+            (click)="tabService.setActiveTab(tab.id)"
+          >
+            <span>{{ tab.title }}</span>
+            <button (click)="tabService.removeTab(tab.id); $event.stopPropagation()">
+              <svg xmlns="http://www.w3.org/2000/svg" class="filter icon icon-tabler icon-tabler-square-rounded-x" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2d3a89" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M10 10l4 4m0 -4l-4 4" />
+                <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" />
+              </svg>
+            </button>
+          </div>
+        }
+      </div>
+      <div class="tab-content h-full w-full">
+        @if (tabService.getActiveTab()) {
+          <ng-container class="h-full w-full" *ngComponentOutlet="tabService.getActiveTab()!.component"></ng-container>
+        } @else {
+          <div class="no-tab">..</div>
+          <!-- <app-roles></app-roles> -->
+        }
+      </div>
+    </main>
+  </div>
+</div>

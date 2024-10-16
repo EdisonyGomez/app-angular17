@@ -1,0 +1,33 @@
+.tree-view {
+  list-style-type: none;      /* Elimina los puntos de la lista */
+  padding-left: 12px;        /* Añade un margen a la izquierda para el contenido de la lista */
+}
+
+.node-content {
+  cursor: pointer;            /* Cambia el cursor a puntero al pasar sobre el contenido del nodo */
+  padding: 5px;              /* Añade un relleno alrededor del contenido del nodo */
+  display: flex;             /* Utiliza flexbox para alinear los elementos hijos */
+  align-items: center;       /* Centra verticalmente los elementos dentro del contenedor */
+}
+
+.node-content:hover {
+  background-color: #f0f0f0; /* Cambia el color de fondo al pasar el cursor sobre el contenido del nodo */
+}
+
+.toggle-icon {
+  margin-right: 5px;         /* Añade un margen derecho para separar el ícono del texto del nodo */
+  transition: transform 0.3s; /* Añade una transición suave al aplicar transformaciones */
+}
+
+/* .toggle-icon.expanded {
+  transform: rotate(10deg);  /* (comentado) Rota el ícono cuando el nodo está expandido */
+/* } */ 
+
+.child-container {
+  overflow: hidden;           /* Oculta el contenido que desborda el contenedor de hijos */
+}
+
+.icon {
+  width: 20px;               /* Define un ancho fijo para los íconos */
+  height: 20px;              /* Define una altura fija para los íconos */
+}

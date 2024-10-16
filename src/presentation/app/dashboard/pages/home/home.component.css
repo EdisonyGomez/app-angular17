@@ -1,0 +1,64 @@
+.contenedor{
+    display: flex;
+    flex-direction: row;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+  }
+  .content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .tabs {
+    display: flex;
+    background-color: #e1e8f6;
+    flex-wrap: wrap;
+    padding-left: 5px;
+  }
+  .tab {
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+  .tab.active {
+    background-color: #fff;
+    border-bottom: none;
+    box-shadow: 1px 2px 3px #343688;
+    font-weight: 500;    
+    transition: background ease-in .3s;
+  }
+  .tab button {
+    margin-left: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  .no-tab{
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-top: none;
+    flex-grow: 1;
+    height: 80dvh;
+    background-image: url('/assets/img/logo-pagina-principal.png');
+    background-size: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.3;
+  }
+
+  .icon{
+    transition: stroke 0.3s ease;
+  }
+
+  .icon:hover{
+    stroke: red;
+  }
+  
