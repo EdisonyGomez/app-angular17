@@ -6,11 +6,12 @@ import { UserModel } from '@domain/users/models/user.model';
 import { RegisterUserUseCase } from '@domain/users/useCases/register-user.useCase';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
+import { CapitalizePipe } from '../../../pipes/capitalize.pipe';
 
 @Component({
   selector: 'app-registro-usuario',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CapitalizePipe],
   templateUrl: './registro-usuario.component.html',
   styleUrl: './registro-usuario.component.css'
 })
@@ -22,7 +23,8 @@ export class RegistroUsuarioComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private getRolesUseCase: GetRolesUseCase,
               private registerUserUseCase: RegisterUserUseCase,
-              private toastr: ToastrService) {
+              private toastr: ToastrService
+            ) {
 
     // Inicializa el formulario de registro con validaciones
     this.registrationForm = this.fb.group({
@@ -78,7 +80,7 @@ export class RegistroUsuarioComponent implements OnInit {
         active: this.registrationForm.get('active')?.value,
         id_role: this.registrationForm.get('id_role')?.value
       };
-
+      //Ejecuta el caso de uso para registrar un usuario nuevo
       this.registerUserUseCase.execute(userModel).pipe(
         takeUntil(this.destroy$)
       ).subscribe({

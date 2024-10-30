@@ -1,1 +1,57 @@
-<p>editar-rol works!</p>
+<div class="container mx-auto p-6 bg-white shadow-lg rounded-lg">
+  <form [formGroup]="roleForm" class="mb-8">
+    <label for="selectedRoleId" class="block text-2xl font-bold text-gray-700 mb-2">
+      Seleccione un Rol
+    </label>
+    <select
+      id="selectedRoleId"
+      formControlName="selectedRoleId"
+      (change)="onRoleChange($event)"
+      class="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+    >
+      <option value="" disabled selected>Seleccione un rol</option>
+      @for (role of roles(); track role.id) {
+        <option [value]="role.id">{{ role.description }}</option>
+      }
+    </select>
+  </form>
+
+  @if (selectedRole()) {
+    <div class="bg-gray-100 p-6 rounded-lg shadow-inner">
+      <h2 class="text-2xl font-semibold mb-4 text-gray-800">
+        Permisos para: {{ selectedRole()?.description }}
+      </h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        @for (module of modules(); track module.id) {
+          <div class="bg-white p-4 rounded-md shadow">
+            <h3 class="text-xl font-medium mb-3 text-gray-700">{{ module.description }}</h3>
+            <div class="space-y-2">
+              @for (operation of module.operations; track operation.id) {
+                <div class="flex items-center">
+                  <input
+                    type="checkbox"
+                    [id]="'operation-' + operation.id"
+                    [value]="operation.id"
+                    [checked]="isPermissionActive(operation.id)"
+                    (change)="togglePermission(operation.id)"
+                    class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                  />
+                  <label [for]="'operation-' + operation.id" class="ml-2 text-sm text-gray-700">
+                    {{ operation.description }}
+                  </label>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+      <button
+        (click)="savePermissions()"
+        [disabled]="!hasChanges()"
+        class="mt-6 px-6 py-2 bg-[#4CAF50] text-white font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Guardar Cambios
+      </button>
+    </div>
+  }
+</div>
